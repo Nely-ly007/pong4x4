@@ -402,21 +402,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2112f293953544ca4fd71265733fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  halfWidth: 8
-  halfHeight: 5
+  arenaHalfSize: 6
   paddleLength: 1.8
   paddleThickness: 0.22
   paddleSpeed: 6
   ballRadius: 0.18
-  ballSpeed: 5
+  ballSpeed: 7
   paddleInset: 0.35
-  cornerMargin: 0.6
+  cannonsEnabled: 1
+  cornerSize: 1
+  cannonRadius: 0.45
+  cannonAimTime: 0.8
+  cannonSpread: 35
+  bumpersEnabled: 1
+  bumperRadius: 0.45
+  bumperPosition: 0.45
+  bumperKick: 1.5
+  maxBallSpeed: 11
+  powerupsEnabled: 1
+  powerupRadius: 0.3
+  powerupMinInterval: 2
+  powerupMaxInterval: 6
+  powerupLifetime: 10
+  boostMultiplier: 1.5
+  boostDuration: 6
+  allowSpeed: 1
+  allowBigPaddle: 1
+  allowShield: 1
+  allowGhost: 1
+  allowFreeze: 1
+  bigPaddleMultiplier: 1.6
+  bigPaddleDuration: 8
+  ghostDuration: 3
+  freezeDuration: 4
   maxPenaltyPoints: 5
   startOnlyWithFourPlayers: 0
   disconnectTimeout: 5
   restartDelay: 6
   ballPosition: {x: 0, y: 0}
-  ballVelocity: {x: 0, y: 0}
+  ballVelocity: {x: 5, y: 5}
   gameStarted: 0
   gameOver: 0
   loserId: -1

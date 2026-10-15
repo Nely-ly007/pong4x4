@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public float paddleThickness = 0.22f;
     public float paddleSpeed = 6f;
     public float ballRadius = 0.18f;
-    public float ballSpeed = 5f;
+    public float ballSpeed = 10f;
     [Tooltip("Distância do centro da raquete até a parede.")]
     public float paddleInset = 0.35f;
 
