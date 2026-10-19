@@ -31,6 +31,8 @@ public class UDPClient : MonoBehaviour
     private float lastReceiveTime;
 
     public event Action<NetMessage> StateReceived;
+    public event Action<NetConfig> ConfigReceived;      // medidas da arena (o servidor manda após o WELCOME e a cada 1 s)
+    public NetConfig LatestConfig { get; private set; }
     public event Action<string> StatusChanged;
 
     private void Awake()
@@ -120,6 +122,19 @@ public class UDPClient : MonoBehaviour
 
             if (message == null) continue;
             lastReceiveTime = Time.realtimeSinceStartup;
+
+            if (message.type == "CONFIG")
+            {
+                NetConfig config;
+                try { config = JsonUtility.FromJson<NetConfig>(json); }
+                catch { continue; }
+                if (config != null)
+                {
+                    LatestConfig = config;
+                    ConfigReceived?.Invoke(config);
+                }
+                continue;
+            }
 
             if (message.type == "WELCOME")
             {

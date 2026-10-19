@@ -493,6 +493,9 @@ MonoBehaviour:
   statusText: {fileID: 0}
   scoreText: {fileID: 0}
   createArenaOnStart: 1
+  soundEnabled: 1
+  volume: 0.7
+  effectsEnabled: 1
 --- !u!114 &1924356386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,9 +523,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbf45e96d060244090d039958a58ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UDPClient
-  serverIP: 10.57.10.43
+  serverIP: 127.0.0.1
   serverPort: 7777
-  clientName: Player
+  clientName: Nely
   joinRetryInterval: 1
   serverTimeout: 3
 --- !u!1660057539 &9223372036854775807

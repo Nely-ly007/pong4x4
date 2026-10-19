@@ -17,6 +17,8 @@ public class UDPServer : MonoBehaviour
     private readonly ConcurrentQueue<IncomingPacket> incoming = new ConcurrentQueue<IncomingPacket>();
     private GameManager gameManager;
     private float tickAccumulator;
+    private float nextConfigTime;
+    private bool sizeLogged;
 
     private class IncomingPacket
     {
@@ -96,6 +98,13 @@ public class UDPServer : MonoBehaviour
 
         // Envia o estado UMA vez por tick (antes enviava a cada frame, sem limite).
         if (ticked) SendStateToAll();
+
+        // A configuração da arena vai de novo a cada segundo (barata e evita depender de um pacote só).
+        if (Time.realtimeSinceStartup >= nextConfigTime)
+        {
+            nextConfigTime = Time.realtimeSinceStartup + 1f;
+            SendConfigToAll();
+        }
     }
 
     private void ReceiveLoop()
@@ -129,6 +138,7 @@ public class UDPServer : MonoBehaviour
             NetMessage response = gameManager.CreateState(id);
             response.type = id >= 0 ? "WELCOME" : "FULL";
             Send(response, packet.endpoint);
+            if (id >= 0) SendConfig(packet.endpoint);
         }
         else if (message.type == "INPUT")
         {
@@ -159,12 +169,37 @@ public class UDPServer : MonoBehaviour
         }
     }
 
+    private void SendConfigToAll()
+    {
+        for (int i = 0; i < gameManager.players.Length; i++)
+        {
+            ServerPlayer p = gameManager.players[i];
+            if (p.connected && p.endpoint != null) SendConfig(p.endpoint);
+        }
+    }
+
+    private void SendConfig(IPEndPoint endpoint)
+    {
+        if (udp == null || endpoint == null) return;
+        try
+        {
+            byte[] data = Encoding.UTF8.GetBytes(JsonUtility.ToJson(gameManager.CreateConfig()));
+            udp.Send(data, data.Length, endpoint);
+        }
+        catch (Exception e) { Debug.LogWarning("Falha ao enviar configuração UDP: " + e.Message); }
+    }
+
     private void Send(NetMessage message, IPEndPoint endpoint)
     {
         if (udp == null || endpoint == null) return;
         try
         {
             byte[] data = Encoding.UTF8.GetBytes(JsonUtility.ToJson(message));
+            if (!sizeLogged && message.type == "STATE")
+            {
+                sizeLogged = true;
+                Debug.Log("Tamanho de um pacote de estado: " + data.Length + " bytes" + (data.Length > 1400 ? " (acima de 1400: pode fragmentar na rede)" : " (ok)"));
+            }
             udp.Send(data, data.Length, endpoint);
         }
         catch (Exception e) { Debug.LogWarning("Falha ao enviar UDP: " + e.Message); }
