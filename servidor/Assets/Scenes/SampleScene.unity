@@ -414,29 +414,43 @@ MonoBehaviour:
   cannonRadius: 0.45
   cannonAimTime: 0.8
   cannonSpread: 35
+  cannonDoubleShot: 1
+  maxExtraBalls: 2
+  extraBallLifetime: 8
   bumpersEnabled: 1
   bumperRadius: 0.45
   bumperPosition: 0.45
   bumperKick: 1.5
+  bumperBonusDecay: 0.3
+  maxBumperBonus: 4
   maxBallSpeed: 11
+  bumperMoveInterval: 10
+  bumperMoveSpeed: 4
   powerupsEnabled: 1
   powerupRadius: 0.3
   powerupMinInterval: 2
   powerupMaxInterval: 6
   powerupLifetime: 10
-  boostMultiplier: 1.5
-  boostDuration: 6
   allowSpeed: 1
   allowBigPaddle: 1
   allowShield: 1
-  allowGhost: 1
+  allowMini: 1
   allowFreeze: 1
+  allowBarrier: 1
+  boostMultiplier: 1.5
+  boostDuration: 6
   bigPaddleMultiplier: 1.6
   bigPaddleDuration: 8
-  ghostDuration: 3
+  miniPaddleMultiplier: 0.55
+  miniPaddleDuration: 6
   freezeDuration: 4
+  barrierDuration: 6
+  barrierLength: 3.2
+  barrierThickness: 0.16
+  barrierInset: 1
   maxPenaltyPoints: 5
-  startOnlyWithFourPlayers: 0
+  startOnlyWithFourPlayers: 1
+  countdownSeconds: 3
   disconnectTimeout: 5
   restartDelay: 6
   ballPosition: {x: 0, y: 0}
@@ -444,6 +458,7 @@ MonoBehaviour:
   gameStarted: 0
   gameOver: 0
   loserId: -1
+  winnerId: -1
 --- !u!114 &825921147
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbf45e96d060244090d039958a58ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UDPClient
-  serverIP: 127.0.0.1
+  serverIP: 10.57.1.70
   serverPort: 7777
   clientName: Nely
   joinRetryInterval: 1
